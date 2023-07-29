@@ -1,19 +1,15 @@
-def county_name():
-    import json
-    f=open('countries.json')
-    data=json.load(f)
-    L=dict(data)
-#print(L)
-#f.close()
-    a = input('Введите код страны: ')
-    b=a.upper()
-    if (L.get(b)):
-        print(L.get(b))
-    else:
-        print('Сountry is not found')
+import json
 
 
-county_name()
+def get_country_name():
+    countries_json = open('countries.json')
+    countries_data = json.load(countries_json)
+    user_input = input('Введите код страны: ').upper()
+    print(countries_data.get(user_input, 'Country is not found'))
+    countries_json.close()
+
+
+get_country_name()
 
 
 
