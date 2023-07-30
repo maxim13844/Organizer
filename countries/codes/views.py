@@ -11,5 +11,4 @@ def get_country_name(request):
     return HttpResponse(f'Code: {code_input} <br> Country: <b>{country}</b>')
 
 
-'''def get_country_name(request):
-    return HttpResponse("Hello, world. You're at the polls index.")'''
+
