@@ -1,0 +1,11 @@
+<html>
+    <body>
+        {% if country_key %}
+            <h1 style="color: aqua"><b>Country:</b> {{ country_key.name }} </h1>
+            <div><b>Code:</b> {{ country_key.code }} </div>
+            <div><b>Id:</b> {{ country_key.id }} </div>
+        {% else %}
+            <div><i>Country not found</i></div>
+        {% endif %}
+    </body>
+</html>
