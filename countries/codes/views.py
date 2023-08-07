@@ -4,13 +4,19 @@ from codes.models import Country
 
 from django.shortcuts import render
 
-def get_country_name(request):
-    if 'code' not in request.GET:
-        return HttpResponse('code param is required')
-    code_input = request.GET['code'].upper()
-    country = Country.objects.filter(code=code_input).first()
-    return render(request, "codes/index.html", {'country_key': country})
 
+def get_country_name(request):
+    if request.POST:
+        country = Country.objects.filter(code=request.POST['code'].upper()).first()
+        return render(request, "codes/index.html", {'country_key': country})
+    return render(request, "codes/search.html")
+
+
+def country_view(request):
+    if request.GET.get('countries') == 'list':
+        countries = Country.objects.all()
+        return render(request, "codes/countries-list.html", {'countries': countries})
+    return render(request, "codes/countries.html")
 
 
 
