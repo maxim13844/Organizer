@@ -2,3 +2,5 @@ venv/
 db.sqlite3
 .idea/
 __pycache__/
+country_db_data/
+db-data/

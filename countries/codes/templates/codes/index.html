@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Countries | List</title>
+{% extends 'codes/base.html' %}
+
+{% block title %}Countries | List{% endblock %}
+
+{% block headers %}
     <style>
         table, th, td {
         border:1px solid black;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block body %}
     <h1 style="text-align: center; color: midnightblue; border: 2px solid darkblue; background-color: bisque">Countries Site</h1>
-    <a href="http://192.168.99.100:8000/countries"><button>Back <<<</button></a>
-    {% if country_key %}
-        <h1 style="color: aqua"><b>Country:</b> {{ country_key.name }} </h1>
-        <div><b>Code:</b> {{ country_key.code }} </div>
-        <div><b>Id:</b> {{ country_key.id }} </div>
+    <a href="{% url 'countries:country_view' %}"><button>Back <<<</button></a>
+    {% if country %}
+        <h1 style="color: aqua"><b>Country:</b> {{ country.name }} </h1>
+        <div><b>Code:</b> {{ country.code }} </div>
+        <div><b>Id:</b> {{ country.id }} </div>
     {% else %}
         <div><i>Country not found</i></div>
     {% endif %}
-</body>
-</html>
+{% endblock %}

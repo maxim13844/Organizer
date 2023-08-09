@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Countries | List</title>
-</head>
-<body>
+{% extends 'codes/base.html' %}
+
+{% block title %}Countries | List{% endblock %}
+
+{% block body %}
     <h1 style="text-align: center; color: midnightblue; border: 2px solid darkblue; background-color: bisque">Countries Site</h1>
     <p>Hello friend, please click "Show list" to see all countries and codes</p>
-    <a href="http://192.168.99.100:8000/countries?countries=list"><button>Show list</button></a>
-    <a href="http://192.168.99.100:8000/countries/codes"><button>Search country</button></a>
-</body>
-</html>
+    <a href="{% url 'countries:country_view' %}?countries=list"><button>Show list</button></a>
+    <a href="{% url 'countries:get_country_name' %}"><button>Search country</button></a>
+{% endblock %}

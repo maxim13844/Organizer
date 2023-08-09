@@ -3,3 +3,5 @@ Django==4.2.3
 Send2Trash==1.8.2
 sqlparse==0.4.4
 tzdata==2023.3
+psycopg2-binary==2.9.7
+requests==2.31.0

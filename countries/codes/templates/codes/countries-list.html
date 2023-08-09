@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Countries | List</title>
+{% extends 'codes/base.html' %}
+
+{% block title %}Countries | List{% endblock %}
+
+{% block headers %}
     <style>
         table, th, td {
         border:1px solid black;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block body %}
     <h1 style="text-align: center; color: midnightblue; border: 2px solid darkblue; background-color: bisque">Countries Site</h1>
-    <a href="http://192.168.99.100:8000/countries"><button>Back <<<</button></a>
+    <a href="{% url 'countries:country_view' %}"><button>Back <<<</button></a>
     <table style="width: 100%">
         <tr>
             <th>Id</th>
@@ -26,5 +27,4 @@
             </tr>
         {% endfor %}
     </table>
-</body>
-</html>
+{% endblock %}

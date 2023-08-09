@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Countries | Search</title>
-</head>
-<body>
+{% extends 'codes/base.html' %}
+
+{% block title %}Countries | Search{% endblock %}
+
+{% block body %}
     <h1 style="text-align: center; color: midnightblue; border: 2px solid darkblue; background-color: bisque">Countries Site</h1>
-    <form action="http://192.168.99.100:8000/countries/codes" method="post">
+    <form action="{% url 'countries:get_country_name' %}" method="post">
         {% csrf_token %}
         <input style="text" name="code" maxlength="2">
         <button>Search</button>
     </form>
-</body>
-</html>
+{% endblock %}

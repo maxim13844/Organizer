@@ -1,8 +1,10 @@
 from django.urls import path
 
-from . import views
+from codes.views import CountryNameView, CountryView
+
+app_name = 'countries'
 
 urlpatterns = [
-    path("codes", views.get_country_name, name="get_country_name"),
-    path("", views.country_view, name="country_view"),
+    path("codes", CountryNameView.as_view(), name="get_country_name"),
+    path("", CountryView.as_view(), name="country_view"),
 ]
