@@ -1,13 +1,26 @@
 version: '3'
 
 services:
+  web:
+    image: nginx
+    volumes:
+      - ./templates:/etc/nginx/templates
+      - ./web/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./web/landing:/usr/share/nginx/html/landing
+      - ./web/countries:/usr/share/nginx/html/countries
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=organizer.com
+      - NGINX_PORT=80
+
   countries:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./countries:/usr/src/app/
     ports:
-      - 8000:8000
+      - "8000:8000"
 
   pgadmin4:
     image: dpage/pgadmin4

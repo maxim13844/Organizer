@@ -20,7 +20,7 @@ class CountryNameView(View):
             res = requests.get(self.country_domain)
             if country_name := res.json().get(user_input):
                 country = Country.objects.create(code=user_input, name=country_name)
-        return render(request, "codes/index.html", {'country': country})
+        return render(request, "codes/countries.html", {'country': country})
 
 class CountryView(View):
 

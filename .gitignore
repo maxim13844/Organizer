@@ -4,3 +4,4 @@ db.sqlite3
 __pycache__/
 country_db_data/
 db-data/
+templates/
