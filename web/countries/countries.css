@@ -1,4 +1,20 @@
+body {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+}
+
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
+}
+
+.form-control {
+  max-width: 100px;
+}
+
+#back-button {
+  margin-right: 15px;
 }
