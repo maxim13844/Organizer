@@ -25,8 +25,13 @@ SECRET_KEY = 'django-insecure-@-te=7dqkudkg350ovd*9ae_81g&2a3m%&f0%-vd1q!(5zwqp(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.99.100', 'localhost']
+ALLOWED_HOSTS = ['192.168.99.100', 'localhost', 'organizer.com']
 
+CORS_ALLOWED_ORIGINS = [
+    "http://organizer.com",
+    "http://localhost",
+    "http://192.168.99.100",
+]
 
 # Application definition
 
@@ -37,12 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'codes'
+    'rest_framework',
+    'corsheaders',
+    'countries'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -50,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'countries.urls'
+ROOT_URLCONF = 'organizer.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'countries.wsgi.application'
+WSGI_APPLICATION = 'organizer.wsgi.application'
 
 
 # Database
