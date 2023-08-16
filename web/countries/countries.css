@@ -18,3 +18,7 @@ table, th, td {
 #back-button {
   margin-right: 15px;
 }
+
+.card-img-top{
+  width: 150px !important;
+}

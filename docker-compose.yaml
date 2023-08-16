@@ -22,6 +22,21 @@ services:
     ports:
       - "8000:8000"
 
+  celery:
+    build: .
+    command: celery -A organizer worker -l INFO
+    volumes:
+      - ./organizer:/usr/src/app/
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+   # ports:
+   #   - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./cache:/data
+
   pgadmin4:
     image: dpage/pgadmin4
     logging:

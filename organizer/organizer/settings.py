@@ -33,6 +33,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.99.100",
 ]
 
+CELERY_BROKER_URL = "redis://redis:6379/0"
+
 # Application definition
 
 INSTALLED_APPS = [
