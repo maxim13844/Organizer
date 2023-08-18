@@ -3,9 +3,7 @@ const apiUrl = "http://192.168.99.100:8000/countries"
 var buttonReset = document.getElementById("reset");
 
 buttonReset.addEventListener("click", function() {
-    const tableBody = document.querySelector("#data-table tbody");
-    tableBody.innerHTML = '';
-    get_countries()
+    location.reload()
 });
 
 
@@ -46,10 +44,7 @@ function get_countries() {
                 tableBody.appendChild(row);
 
                 document.querySelector(`.country-view-${item.id}`).addEventListener("click", function() {
-                // const countryView = document.querySelector(".country-view");
-                // countryView.addEventListener("click", function() {
                     get_country(item.id)
-
                 });
             });
 
@@ -63,40 +58,71 @@ function get_country(pk) {
     fetch(apiUrl + '/' + pk)
         .then(response => response.json())
         .then(data => {
-            const cardImageView = document.querySelector(".card-img-top");
-            cardImageView.src = data["flag"];
+            const tableBody = document.querySelector("#data-table");
+            tableBody.innerHTML = '';
 
-            const countryView = document.querySelector(".card-title.name");
-            countryView.textContent = data["name"];
+            if (Object.keys(data).length !==0) {
+                const countryCard = document.querySelector("#country-card");
+                countryCard.style.display = 'block';
 
-            const codeView = document.querySelector(".card-text.code");
-            codeView.textContent = data["code"];
+                const tableBody = document.querySelector("#data-table");
+                tableBody.innerHTML = '';
 
-            const createdAtView = document.querySelector(".card-text.created_at");
-            createdAtView.textContent = data["created_at"];
+                const searchGroup = document.querySelector(".input-group-prepend");
+                searchGroup.innerHTML = '';
 
-            const isIndependentView = document.querySelector(".card-text.is_independent");
-            isIndependentView.textContent = data["is_independent"];
+                const searchInput = document.querySelector("#search-input");
+                searchInput.style.display = 'none';
 
-            const currencyView = document.querySelector(".card-text.currency");
-            const currencySymbolView = document.querySelector(".card-text.currency_symbol");
-            const capitalView = document.querySelector(".card-text.capital");
-            const regionView = document.querySelector(".card-text.region");
-            const areaView = document.querySelector(".card-text.area");
-            const populationView = document.querySelector(".card-text.population");
-            const flagView = document.querySelector(".card-text.flag");
+                const searchButton = document.querySelector("#search");
+                searchButton.style.display = 'none';
 
+                const cardImageView = document.querySelector(".card-img-top");
+                cardImageView.src = data["flag"];
 
+                const countryView = document.querySelector(".card-title.name");
+                countryView.textContent = data["name"];
 
+                const codeView = document.querySelector(".card-text.code");
+                codeView.textContent = data["code"];
 
+                const createdAtView = document.querySelector(".card-text.created_at");
+                createdAtView.textContent = data["created_at"];
 
-            currencyView.textContent = data["currency"];
-            currencySymbolView.textContent = data["currency_symbol"];
-            capitalView.textContent = data["capital"];
-            regionView.textContent = data["region"];
-            areaView.textContent = data["area"];
-            populationView.textContent = data["population"];
+                const isIndependentView = document.querySelector(".card-text.is_independent");
+                isIndependentView.textContent = data["is_independent"];
+
+                const currencyView = document.querySelector(".card-text.currency");
+                currencyView.textContent = data["currency"];
+
+                const currencySymbolView = document.querySelector(".card-text.currency_symbol");
+                currencySymbolView.textContent = data["currency_symbol"];
+
+                const capitalView = document.querySelector(".card-text.capital");
+                capitalView.textContent = data["capital"];
+
+                const regionView = document.querySelector(".card-text.region");
+                regionView.textContent = data["region"];
+
+                const areaView = document.querySelector(".card-text.area");
+                areaView.textContent = data["area"];
+
+                const populationView = document.querySelector(".card-text.population");
+                populationView.textContent = data["population"];
+            } else{
+                const countryWarning = document.querySelector("#country-warning");
+                countryWarning.style.display = 'block';
+                countryWarning.dataset.pk = pk;
+            }
         })
         .catch(error => console.error("Error fetching data:", error));
 }
+
+var buttonReFetch = document.getElementById("re-fetch");
+buttonReFetch.addEventListener("click", function() {
+    const countryWarning = document.querySelector("#country-warning");
+    countryWarning.style.display = 'none';
+    get_country(countryWarning.dataset.pk);
+});
+
 get_countries()

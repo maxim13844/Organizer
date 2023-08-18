@@ -37,7 +37,7 @@
 
           </tbody>
         </table>
-<div class="card">
+<div class="card" id="country-card">
   <img src="" class="card-img-top" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title name"></h5>
@@ -52,5 +52,15 @@
         <div>Population: <span class="card-text population"></span></div>
   </div>
 </div>
+
+<div class="alert alert-warning" role="alert" id="country-warning">
+  Your data started to fetch. Please wait and reload the page.
+    <button type="button" class="btn btn-primary" id="re-fetch">Re-fetch
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </button>
+</div>
+
 </body>
 </html>
