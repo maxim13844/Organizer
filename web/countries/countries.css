@@ -21,4 +21,9 @@ table, th, td {
 
 .card-img-top{
   width: 150px !important;
+  border: 1px solid black;
+}
+
+#country-card, #country-warning{
+  display: none;
 }

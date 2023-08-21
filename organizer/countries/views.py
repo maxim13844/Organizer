@@ -5,9 +5,10 @@ from countries.models import Country
 from countries.serializers import CountrySerializer, CountryDetailSerializer
 from countries.tasks import fetch_country_data
 
+
 class CountryView(APIView):
     def get(self, request):
-        data = CountrySerializer(Country.objects.all(), many=True).data
+        data = CountrySerializer(Country.objects.all().order_by('name'), many=True).data
         fetch_country_data.delay('ukraine')
         return Response(data)
 
@@ -29,5 +30,5 @@ class CountryDetailView(APIView):
         country = Country.objects.filter(pk=pk).first()
         if not country.flag:
             fetch_country_data.delay(country.name.lower())
-            return Response()
+            return Response({})
         return Response(CountryDetailSerializer(country).data)
