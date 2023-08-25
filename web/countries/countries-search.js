@@ -1,4 +1,4 @@
-const apiSearchUrl = "http://192.168.99.100:8000/countries/search/"
+const apiSearchUrl = `http://${host}:8000/countries/search/`
 var buttonSearch = document.getElementById("search");
 var searchInput = document.getElementById("search-input");
 

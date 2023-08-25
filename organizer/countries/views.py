@@ -21,7 +21,7 @@ class CountrySearchView(APIView):
         if not country:
             res = requests.get(self.country_domain)
             if country_name := res.json().get(param.upper()):
-                country = Country.objects.create(code=param, name=country_name)
+                country = Country.objects.create(code=param.upper(), name=country_name)
         return Response(CountrySerializer(country).data if country else {})
 
 
@@ -32,3 +32,13 @@ class CountryDetailView(APIView):
             fetch_country_data.delay(country.name.lower())
             return Response({})
         return Response(CountryDetailSerializer(country).data)
+
+
+# class CountryDeleteView(APIView):
+#     def delete_records(self):
+#         for selection_item in self.tree.selection():
+#             self.db.c.execute('''DELETE FROM countries_country WHERE id=?''', self.tree.set(selection_item,'#1'))
+#         self.db.conn.commit()
+#         self.view_records()
+
+
