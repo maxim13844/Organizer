@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from countries.models import Country
 from countries.serializers import CountrySerializer, CountryDetailSerializer
-from countries.tasks import fetch_country_data
+from countries.tasks import fetch_country_data, delete_all_countries
 
 
 class CountryView(APIView):
@@ -11,6 +11,10 @@ class CountryView(APIView):
         data = CountrySerializer(Country.objects.all().order_by('name'), many=True).data
         fetch_country_data.delay('ukraine')
         return Response(data)
+
+    def delete(self, request):
+        delete_all_countries()
+        return Response({})
 
 
 class CountrySearchView(APIView):
@@ -33,12 +37,6 @@ class CountryDetailView(APIView):
             return Response({})
         return Response(CountryDetailSerializer(country).data)
 
-
-# class CountryDeleteView(APIView):
-#     def delete_records(self):
-#         for selection_item in self.tree.selection():
-#             self.db.c.execute('''DELETE FROM countries_country WHERE id=?''', self.tree.set(selection_item,'#1'))
-#         self.db.conn.commit()
-#         self.view_records()
-
-
+    def delete(self, request, pk):
+        Country.objects.filter(pk=pk).delete()
+        return Response({})
