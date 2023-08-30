@@ -1,14 +1,12 @@
-const apiUrl = "http://192.168.99.100:8000/countries"
+host = '192.168.99.100'
+
+const apiUrl = `http://${host}:8000/countries`
 
 var buttonReset = document.getElementById("reset");
 
 buttonReset.addEventListener("click", function() {
     location.reload()
 });
-
-
-
-
 
 function get_countries() {
     fetch(apiUrl)
@@ -37,7 +35,7 @@ function get_countries() {
                 const actionCell = document.createElement('td');
                 actionCell.innerHTML = `<div class="btn-group" role="group" aria-label="Basic example">\n` +
                     `  <button type="button" class="btn btn-primary country-view-${item.id}">View</button>\n` +
-                    `  <button type="button" class="btn btn-danger">Delete</button>\n` +
+                    `  <button type="button" class="btn btn-danger country-delete-${item.id}">Delete</button>\n` +
                     `</div>`
                 row.appendChild(actionCell);
 
@@ -45,6 +43,10 @@ function get_countries() {
 
                 document.querySelector(`.country-view-${item.id}`).addEventListener("click", function() {
                     get_country(item.id)
+                });
+
+                document.querySelector(`.country-delete-${item.id}`).addEventListener("click", function() {
+                    delete_country(item.id)
                 });
             });
 

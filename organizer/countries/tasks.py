@@ -17,3 +17,8 @@ def fetch_country_data(self, name, *args, **kwargs):
     country.population = data["population"]
     country.flag = data["flags"]["png"]
     country.save()
+
+
+@app.task(bind=True, ignore_result=True)
+def delete_all_countries(self, *args, **kwargs):
+    Country.objects.all().delete()

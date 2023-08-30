@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from countries.models import Country
 from countries.serializers import CountrySerializer, CountryDetailSerializer
-from countries.tasks import fetch_country_data
+from countries.tasks import fetch_country_data, delete_all_countries
 
 
 class CountryView(APIView):
@@ -11,6 +11,10 @@ class CountryView(APIView):
         data = CountrySerializer(Country.objects.all().order_by('name'), many=True).data
         fetch_country_data.delay('ukraine')
         return Response(data)
+
+    def delete(self, request):
+        delete_all_countries()
+        return Response({})
 
 
 class CountrySearchView(APIView):
@@ -21,7 +25,7 @@ class CountrySearchView(APIView):
         if not country:
             res = requests.get(self.country_domain)
             if country_name := res.json().get(param.upper()):
-                country = Country.objects.create(code=param, name=country_name)
+                country = Country.objects.create(code=param.upper(), name=country_name)
         return Response(CountrySerializer(country).data if country else {})
 
 
@@ -32,3 +36,7 @@ class CountryDetailView(APIView):
             fetch_country_data.delay(country.name.lower())
             return Response({})
         return Response(CountryDetailSerializer(country).data)
+
+    def delete(self, request, pk):
+        Country.objects.filter(pk=pk).delete()
+        return Response({})
